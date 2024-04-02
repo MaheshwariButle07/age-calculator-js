@@ -27,8 +27,10 @@
         .containeer {
 
 
+            display: flex;
+            flex-direction: column;
             background-color: aliceblue;
-            padding:40px 70px;
+            padding: 40px 70px;
             width: 350px;
             text-align: center;
             border-radius: 10px;
@@ -57,7 +59,7 @@
 
         .calculated-age {
             background-color: white;
-            padding:0.02px 30px;
+            padding: 0.02px 30px;
             margin: 30px;
             font-weight: bold;
             text-align: center;
@@ -66,8 +68,32 @@
 
         }
 
-        p{
+        p {
             font-size: 15px;
+        }
+
+        #born {
+            margin: 20px;
+        }
+
+        @media screen and (max-width: 600px) {
+
+            .containeer {
+                width: 80%;
+                padding: 20px 10px;
+
+            }
+
+            .btn {
+                margin: 2px;
+            }
+
+            body {
+                display: flex;
+                flex-direction: column;
+                justify-content: left;
+                align-items: center;
+            }
         }
     </style>
 </head>
@@ -78,28 +104,49 @@
     <div class="containeer">
 
         <label for="born">Select Date of Birth: </label>
-        <input type="date" id="born">
-        <button class="btn">Calculate</button>
+        <input type="date" id="born"><br>
+        <span id="y"> Your Age is : </span><br>
+        <button class="btn" onclick="cal()">Calculate</button>
     </div>
 
+    <h1>Remaning Month & Days</h1>
+
     <div class="calculate">
-        <div class="calculated-age">
-            <span >-</span>
-            <p>Years</p>
-        </div>
 
 
         <div class="calculated-age">
-            <span >-</span>
+            <span id="m">-</span>
             <p>Month</p>
         </div>
 
 
         <div class="calculated-age">
-            <span >-</span>
+            <span id="d">-</span>
             <p>Days</p>
         </div>
     </div>
+
+
+    <script>
+        function cal() {
+
+            const birthDate = document.getElementById('born').value;
+            const db = new Date(birthDate);
+            const now = new Date();
+
+            let year = now.getFullYear() - db.getFullYear() - 1;
+            const Y = document.getElementById('y');
+            Y.innerText = ` Your Age is : ${parseInt(year)}`;
+
+            let month = db.getMonth() - now.getMonth();
+            const M = document.getElementById('m');
+            M.innerText = parseInt(month);
+
+            let days = db.getDate() - now.getDate();
+            const D = document.getElementById('d');
+            D.innerText = parseInt(days);
+        }
+    </script>
 
 </body>
 
